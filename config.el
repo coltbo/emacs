@@ -39,7 +39,7 @@
    :after evil
    :ensure t
    :config
-   (evil-collection-init '(magit)))
+   (evil-collection-init '(magit dired)))
 
 (use-package general
   :straight t
@@ -50,8 +50,8 @@
   (general-create-definer cb/leader-keys
     :states '(normal insert visual emacs)
     :keymaps 'override
-    :prefix "SPC" ;; set leader
-    :global-prefix "M-SPC")) ;; access leader in insert mode
+    :prefix "," ;; set leader
+    :global-prefix "M-,")) ;; access leader in insert mode
 
 (cb/leader-keys
   "b" '(:ignore t :wk "Buffer")
