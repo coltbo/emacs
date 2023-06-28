@@ -13,6 +13,34 @@
 
 (straight-use-package 'use-package)
 
+(use-package evil
+  :straight t
+  :ensure t ;; install the evil package if not installed
+  :init ;; tweak evil's configuration before loading it
+  (setq evil-want-keybinding nil)
+  (setq evil-search-module 'evil-search)
+  (setq evil-ex-complete-emacs-commands nil)
+  (setq evil-vsplit-window-right t)
+  (setq evil-split-window-below t)
+  (setq evil-shift-round nil)
+  (setq evil-want-C-u-scroll t)
+  :config ;; tweak evil after loading it
+  (evil-mode)
+
+ (evil-define-key 'normal 'global (kbd "C-l") 'evil-window-right)
+ (evil-define-key 'normal 'global (kbd "C-h") 'evil-window-left)
+ (evil-define-key 'normal 'global (kbd "C-k") 'evil-window-up)
+ (evil-define-key 'normal 'global (kbd "C-j") 'evil-window-down)
+ (evil-define-key 'normal 'global (kbd ", v") 'evil-window-vsplit)
+ (evil-define-key 'normal 'global (kbd ", s") 'evil-window-split))
+
+(use-package evil-collection
+   :straight t
+   :after evil
+   :ensure t
+   :config
+   (evil-collection-init '(magit)))
+
 (use-package general
   :straight t
   :config
@@ -45,26 +73,6 @@
   "e e" '(eval-expression :wk "Evalaute an elisp expression")
   "e l" '(eval-last-sexp :wk "Evaluate elisp expression before point")
   "e r" '(eval-region :wk "Evaluate elisp in region"))
-
-(use-package evil
-  :straight t
-  :ensure t ;; install the evil package if not installed
-  :init ;; tweak evil's configuration before loading it
-  (setq evil-search-module 'evil-search)
-  (setq evil-ex-complete-emacs-commands nil)
-  (setq evil-vsplit-window-right t)
-  (setq evil-split-window-below t)
-  (setq evil-shift-round nil)
-  (setq evil-want-C-u-scroll t)
-  :config ;; tweak evil after loading it
-  (evil-mode)
-
- (evil-define-key 'normal 'global (kbd "C-l") 'evil-window-right)
- (evil-define-key 'normal 'global (kbd "C-h") 'evil-window-left)
- (evil-define-key 'normal 'global (kbd "C-k") 'evil-window-up)
- (evil-define-key 'normal 'global (kbd "C-j") 'evil-window-down)
- (evil-define-key 'normal 'global (kbd ", v") 'evil-window-vsplit)
- (evil-define-key 'normal 'global (kbd ", s") 'evil-window-split))
 
 (use-package toc-org
   :straight t
