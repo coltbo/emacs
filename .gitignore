@@ -1,0 +1,9 @@
+.cache/
+.lsp-session-v1
+elpa/
+straight/
+url/
+auto-save-list/
+transient/
+tutorial/
+*~
