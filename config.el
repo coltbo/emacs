@@ -85,15 +85,15 @@
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (set-face-attribute 'default nil
-  :font "JetBrains Mono Nerd Font"
+  :font "Iosevka Nerd Font"
   :height 110
   :weight 'medium)
 (set-face-attribute 'variable-pitch nil
-  :font "Ubuntu"
+  :font "Iosevka Nerd Font"
   :height 120
   :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
-  :font "JetBrains Mono Nerd Font"
+  :font "Iosevka Nerd Font"
   :height 110
   :weight 'medium)
 ;; Makes commented text and keywords italics.
@@ -104,7 +104,7 @@
 (set-face-attribute 'font-lock-keyword-face nil
   :slant 'italic)
 
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono Nerd Font-11"))
+(add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font-11"))
 
 (setq-default line-spacing 0.12)
 
@@ -116,6 +116,7 @@
 
 (global-display-line-numbers-mode 1)
 (global-visual-line-mode t)
+(setq display-line-numbers 'relative)
 
 (use-package which-key
   :straight t
@@ -189,3 +190,6 @@
 
 (use-package magit
   :straight t)
+
+(use-package vterm
+  :load-path "/home/colten/.config/emacs/modules/emacs-libvterm/")
