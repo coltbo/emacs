@@ -11,17 +11,7 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 
-;; Line numbers
-;;(global-display-line-numbers-mode)
-;;(setq display-line-numbers-type 'relative)
-
-;; Load theme
-(load-theme 'tsdh-light)
-
-;;(dolist (mode '(term-mode-hook
-;;		eshell-mode-hook
-;;		help-mode-hook))
-;;  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+(load-theme 'modus-operandi)
 
 (set-face-attribute 'default nil
 		    :font "Iosevka Nerd Font"
@@ -94,6 +84,30 @@
 (setq company-minimum-prefix-length 1
       company-idle-delay 0.0)
 
+(use-package counsel)
+(use-package ivy
+  :ensure t
+  :config
+  (global-set-key (kbd "C-s") 'swiper-isearch)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "M-y") 'counsel-yank-pop)
+  (global-set-key (kbd "C-h f") 'counsel-describe-function)
+  (global-set-key (kbd "C-h v") 'counsel-describe-variable)
+  (global-set-key (kbd "C-h l") 'counsel-find-library)
+  (global-set-key (kbd "C-h i") 'counsel-info-lookup-symbol)
+  (global-set-key (kbd "C-h u") 'counsel-unicode-char)
+  (global-set-key (kbd "C-h j") 'counsel-set-variable)
+  (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+  (global-set-key (kbd "C-c v") 'ivy-push-view)
+  (global-set-key (kbd "C-c V") 'ivy-pop-view)
+  (global-set-key (kbd "C-c c") 'counsel-compile)
+  (global-set-key (kbd "C-c L") 'counsel-git-log)
+  (global-set-key (kbd "C-c k") 'counsel-rg)
+  (global-set-key (kbd "C-c n") 'counsel-fzf)
+  (global-set-key (kbd "C-x l") 'counsel-locate)
+  (global-set-key (kbd "C-c J") 'counsel-file-jump))
+
 (use-package elfeed)
 
 (setq elfeed-feeds
@@ -104,48 +118,12 @@
 	"https://podcast.thelinuxexp.com/@tlenewspodcast/feed.xml"
 	"https://planet.emacslife.com/atom.xml"))
 
-(use-package counsel)
-
-(use-package ivy
+(use-package magit
   :config
-  (ivy-mode)
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t)
-  (global-set-key "\C-s" 'swiper)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "M-y") 'counsel-yank-pop)
-  (global-set-key (kbd "C-h f") 'counsel-describe-function)
-  (global-set-key (kbd "C-h v") 'counsel-describe-variable)
-  (global-set-key (kbd "C-h l") 'counsel-find-library)
-  (global-set-key (kbd "C-h i") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "C-x j") 'counsel-set-variable)
-  (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-  (global-set-key (kbd "C-c v") 'ivy-push-view)
-  (global-set-key (kbd "C-c V") 'ivy-pop-view)
-  (global-set-key (kbd "C-c c") 'counsel-compile)
-  (global-set-key (kbd "C-c g") 'counsel-git)
-  (global-set-key (kbd "C-c j") 'counsel-git-grep)
-  (global-set-key (kbd "C-c L") 'counsel-git-log)
-  (global-set-key (kbd "C-c r") 'counsel-rg)
-  (global-set-key (kbd "C-c f") 'counsel-fzf))
-
-(use-package magit)
+  (global-set-key (kbd "C-c g") 'magit))
 
 ;; windmove
 (use-package windmove
   :config
   (windmove-default-keybindings)
   (setq windmove-wrap-around t))
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages '(magit counsel ivy company which-key)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
