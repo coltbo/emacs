@@ -8,3 +8,7 @@ transient/
 tutorial/
 *~
 eln-cache/
+eshell/
+projects
+recentf
+tramp

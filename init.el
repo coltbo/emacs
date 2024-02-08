@@ -11,7 +11,15 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 
-(load-theme 'modus-operandi)
+;; Line numbers
+(global-display-line-numbers-mode)
+(setq display-line-numbers-type 'relative)
+
+(dolist (mode '(term-mode-hook
+		eshell-mode-hook
+		help-mode-hook)))
+
+(load-theme 'tango)
 
 (set-face-attribute 'default nil
 		    :font "Iosevka Nerd Font"
@@ -31,11 +39,13 @@
 (setq-default line-spacing 0.12)
 
 ;; Changing bar
-(setq-default cursor-type 'bar)
+(setq-default cursor-type 't)
 
 ;; Turn of autosave
 (setq auto-save-default nil)
 (setq make-backup-files nil)
+
+(setq gdb-many-windows 1)
 
 ;; Package management
 (require 'package)
@@ -127,3 +137,6 @@
   :config
   (windmove-default-keybindings)
   (setq windmove-wrap-around t))
+
+;; keybinds
+(keymap-global-set "C-c C-u" 'uncomment-region)	
