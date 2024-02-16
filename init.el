@@ -19,7 +19,7 @@
 		eshell-mode-hook
 		help-mode-hook)))
 
-(load-theme 'tango)
+(load-theme 'zenburn t)
 
 (set-face-attribute 'default nil
 		    :font "Iosevka Nerd Font"
@@ -61,6 +61,8 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
+
+(use-package zenburn-theme)
 
 ;; Which-key
 (use-package which-key
