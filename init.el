@@ -11,15 +11,20 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 
+(set-frame-parameter nil 'alpha-background 98)
+
+(add-to-list 'default-frame-alist '(alpha-background . 98))
+
 ;; Line numbers
 (global-display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
 
 (dolist (mode '(term-mode-hook
 		eshell-mode-hook
-		help-mode-hook)))
+		help-mode-hook
+		vterm-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-(load-theme 'zenburn t)
 
 (set-face-attribute 'default nil
 		    :font "Iosevka Nerd Font"
@@ -62,11 +67,34 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-(use-package zenburn-theme)
-
 ;; Which-key
 (use-package which-key
   :init (which-key-mode 1))
+
+(use-package doom-themes
+  :ensure t
+  :config
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  (load-theme 'doom-tomorrow-night t)
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (all-the-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+
+(use-package vterm
+  :ensure t)
 
 ;; Treesitter
 (require 'treesit)
@@ -141,4 +169,5 @@
   (setq windmove-wrap-around t))
 
 ;; keybinds
-(keymap-global-set "C-c C-u" 'uncomment-region)	
+(keymap-global-set "C-c C-u" 'uncomment-region)
+(keymap-global-set "C-c e v" 'eval-buffer)
