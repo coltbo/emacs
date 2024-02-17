@@ -170,4 +170,4 @@
 
 ;; keybinds
 (keymap-global-set "C-c C-u" 'uncomment-region)
-(keymap-global-set "C-c e v" 'eval-buffer)
+(keymap-global-set "C-c e" 'eval-buffer)
