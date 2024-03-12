@@ -11,10 +11,6 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 
-(set-frame-parameter nil 'alpha-background 98)
-
-(add-to-list 'default-frame-alist '(alpha-background . 98))
-
 ;; Line numbers
 (global-display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
@@ -27,19 +23,19 @@
 
 
 (set-face-attribute 'default nil
-		    :font "Iosevka Nerd Font"
-		    :height 110
+		    :font "JetBrainsMono Nerd Font"
+		    :height 100
 		    :weight 'medium)
 (set-face-attribute 'variable-pitch nil
-		    :font "Iosevka Nerd Font"
+		    :font "JetBrainsMono Nerd Font"
 		    :height 120
 		    :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
-		    :font "Iosevka Nerd Font"
+		    :font "JetBrainsMono Nerd Font"
 		    :height 110
 		    :weight 'medium)
 
-(add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font-11"))
+(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-10"))
 
 (setq-default line-spacing 0.12)
 
@@ -67,96 +63,43 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
+;; Themes
+(use-package monokai-theme)
+(load-theme 'monokai t)
+
 ;; Which-key
 (use-package which-key
   :init (which-key-mode 1))
-
-(use-package doom-themes
-  :ensure t
-  :config
-  ;; Global settings (defaults)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-        doom-themes-enable-italic t) ; if nil, italics is universally disabled
-  (load-theme 'doom-tomorrow-night t)
-
-  ;; Enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-  ;; Enable custom neotree theme (all-the-icons must be installed!)
-  (doom-themes-neotree-config)
-  ;; or for treemacs users
-  (setq doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
-  (doom-themes-treemacs-config)
-  ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
-
-(use-package doom-modeline
-  :ensure t
-  :init (doom-modeline-mode 1))
 
 (use-package vterm
   :ensure t)
 
 ;; Treesitter
-(require 'treesit)
-(setq treesit-language-source-alist
-      '((c "https://github.com/tree-sitter/tree-sitter-c")
-	(elisp "https://github.com/Wilfred/tree-sitter-elisp")
-	(cpp "https://github.com/tree-sitter/tree-sitter-cpp")))
+(use-package tree-sitter)
+(use-package tree-sitter-langs)
 
-(dolist (lang treesit-language-source-alist)
-  (unless (treesit-language-available-p (car lang))
-    (treesit-install-language-grammar (car lang))))
-
-(add-to-list 'major-mode-remap-alist '(c-mode . c-ts-mode))
-(add-to-list 'major-mode-remap-alist '(c++-mode . c++-ts-mode))
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
 
 ;; Eglot
 (use-package eglot
-  :hook (c-ts-mode . eglot-ensure)
-        (c++-ts-mode . eglot-ensure))
+  :hook
+  (c-mode . eglot-ensure)
+  (c++-mode . eglot-ensure)
+  (tuareg-mode . eglot-ensure)
+  :config
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+  (add-to-list 'eglot-server-programs '((tuareg-mode) "ocamllsp")))
 
 ;; Company
 (use-package company
   :hook
-    (c-ts-mode . company-mode)
-    (c++-ts-mode . company-mode))
+    (c-mode . company-mode)
+    (c++-mode . company-mode)
+    (taureg-mode . company-mode))
 
 (setq company-minimum-prefix-length 1
       company-idle-delay 0.0)
-
-(use-package counsel)
-(use-package ivy
-  :ensure t
-  :config
-  (global-set-key (kbd "C-s") 'swiper-isearch)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "M-y") 'counsel-yank-pop)
-  (global-set-key (kbd "C-h f") 'counsel-describe-function)
-  (global-set-key (kbd "C-h v") 'counsel-describe-variable)
-  (global-set-key (kbd "C-h l") 'counsel-find-library)
-  (global-set-key (kbd "C-h i") 'counsel-info-lookup-symbol)
-  (global-set-key (kbd "C-h u") 'counsel-unicode-char)
-  (global-set-key (kbd "C-h j") 'counsel-set-variable)
-  (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-  (global-set-key (kbd "C-c v") 'ivy-push-view)
-  (global-set-key (kbd "C-c V") 'ivy-pop-view)
-  (global-set-key (kbd "C-c c") 'counsel-compile)
-  (global-set-key (kbd "C-c L") 'counsel-git-log)
-  (global-set-key (kbd "C-c k") 'counsel-rg)
-  (global-set-key (kbd "C-c n") 'counsel-fzf)
-  (global-set-key (kbd "C-x l") 'counsel-locate)
-  (global-set-key (kbd "C-c J") 'counsel-file-jump))
-
-(use-package elfeed)
-
-(setq elfeed-feeds
-      '("http://lwn.net/headlines"
-	"https://itsfoss.com/rss"
-	"https://archlinux.org/feeds/news"
-	"https://www.linux.com/feed"
-	"https://podcast.thelinuxexp.com/@tlenewspodcast/feed.xml"
-	"https://planet.emacslife.com/atom.xml"))
 
 (use-package magit
   :config
@@ -167,6 +110,12 @@
   :config
   (windmove-default-keybindings)
   (setq windmove-wrap-around t))
+
+;; ocaml
+(add-to-list 'load-path "/home/colten/.opam/default/share/emacs/site-lisp")
+(use-package tuareg
+  :ensure t)
+(require 'ocp-indent)
 
 ;; keybinds
 (keymap-global-set "C-c C-u" 'uncomment-region)
