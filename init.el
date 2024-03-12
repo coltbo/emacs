@@ -91,6 +91,11 @@
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (add-to-list 'eglot-server-programs '((tuareg-mode) "ocamllsp")))
 
+(keymap-global-set "C-c r" 'eglot-rename)
+(keymap-global-set "C-c f" 'eglot-format-buffer)
+(keymap-global-set "C-c d n" 'flymake-goto-next-error)
+(keymap-global-set "C-c d p" 'flymake-goto-prev-error)
+
 ;; Company
 (use-package company
   :hook
