@@ -11,6 +11,8 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 
+(load-theme 'kanagawa)
+
 ;; Line numbers
 (global-display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
@@ -18,10 +20,11 @@
 (dolist (mode '(term-mode-hook
 		eshell-mode-hook
 		help-mode-hook
-		vterm-mode-hook))
+		vterm-mode-hook
+		org-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-
+;; Fonts
 (set-face-attribute 'default nil
 		    :font "JetBrainsMono Nerd Font"
 		    :height 100
@@ -46,6 +49,10 @@
 (setq auto-save-default nil)
 (setq make-backup-files nil)
 
+;; org
+(add-hook 'org-mode-hook 'turn-on-auto-fill)
+
+;; gdb
 (setq gdb-many-windows 1)
 
 ;; Package management
@@ -65,7 +72,7 @@
 
 ;; Themes
 (use-package monokai-theme)
-(load-theme 'monokai t)
+(use-package kanagawa-theme)
 
 ;; Which-key
 (use-package which-key
@@ -117,11 +124,24 @@
   (setq windmove-wrap-around t))
 
 ;; ocaml
-(add-to-list 'load-path "/home/colten/.opam/default/share/emacs/site-lisp")
 (use-package tuareg
   :ensure t)
-(require 'ocp-indent)
 
 ;; keybinds
 (keymap-global-set "C-c C-u" 'uncomment-region)
 (keymap-global-set "C-c e" 'eval-buffer)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   '("e70e87ad139f94d3ec5fdf782c978450fc2cb714d696e520b176ff797b97b8d2" "37c8c2817010e59734fe1f9302a7e6a2b5e8cc648cf6a6cc8b85f3bf17fececf" default))
+ '(package-selected-packages
+   '(kanagawa-theme which-key vterm tuareg tree-sitter-langs shrink-path nerd-icons monokai-theme magit company)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
