@@ -11,7 +11,7 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 
-(load-theme 'kanagawa)
+(load-theme 'modus-vivendi)
 
 ;; Line numbers
 (global-display-line-numbers-mode)
@@ -26,19 +26,19 @@
 
 ;; Fonts
 (set-face-attribute 'default nil
-		    :font "JetBrainsMono Nerd Font"
-		    :height 100
+		    :font "FantasqueSansM Nerd Font"
+		    :height 110
 		    :weight 'medium)
 (set-face-attribute 'variable-pitch nil
-		    :font "JetBrainsMono Nerd Font"
+		    :font "FantasqueSansM Nerd Font"
 		    :height 120
 		    :weight 'medium)
 (set-face-attribute 'fixed-pitch nil
-		    :font "JetBrainsMono Nerd Font"
+		    :font "FantasqueSansM Nerd Font"
 		    :height 110
 		    :weight 'medium)
 
-(add-to-list 'default-frame-alist '(font . "JetBrainsMono Nerd Font-10"))
+(add-to-list 'default-frame-alist '(font . "FantasqueSansM Nerd Font-11"))
 
 (setq-default line-spacing 0.12)
 
@@ -50,6 +50,7 @@
 (setq make-backup-files nil)
 
 ;; org
+(add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook 'turn-on-auto-fill)
 
 ;; gdb
@@ -69,10 +70,6 @@
 
 (require 'use-package)
 (setq use-package-always-ensure t)
-
-;; Themes
-(use-package monokai-theme)
-(use-package kanagawa-theme)
 
 ;; Which-key
 (use-package which-key
@@ -130,18 +127,3 @@
 ;; keybinds
 (keymap-global-set "C-c C-u" 'uncomment-region)
 (keymap-global-set "C-c e" 'eval-buffer)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   '("e70e87ad139f94d3ec5fdf782c978450fc2cb714d696e520b176ff797b97b8d2" "37c8c2817010e59734fe1f9302a7e6a2b5e8cc648cf6a6cc8b85f3bf17fececf" default))
- '(package-selected-packages
-   '(kanagawa-theme which-key vterm tuareg tree-sitter-langs shrink-path nerd-icons monokai-theme magit company)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
